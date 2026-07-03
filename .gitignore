@@ -1,3 +1,5 @@
 raw_chats/*
 
 *.txt
+
+cache/
