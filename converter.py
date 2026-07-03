@@ -261,6 +261,34 @@ def convert_chat(raw_chat: str):
     extra = data.get("extra", "")
     conversation = data.get("conversation", "")
 
+    # =====================================
+    # UPDATE CONVERSION LOG
+    # =====================================
+
+    LOG_FILE = "chat_converted_of.txt"
+
+    # Create log file if it doesn't exist
+    if not os.path.exists(LOG_FILE):
+        with open(LOG_FILE, "w", encoding="utf-8"):
+            pass
+
+    # Read existing names
+    with open(LOG_FILE, "r", encoding="utf-8") as f:
+        converted_names = {
+            line.strip()
+            for line in f
+            if line.strip()
+        }
+
+    # Add only if not already present
+    if name and name not in converted_names:
+        with open(LOG_FILE, "a", encoding="utf-8") as f:
+            f.write(name + "\n")
+
+    # =====================================
+    # OUTPUT
+    # =====================================
+
     safe_name = clean_filename(name)
     safe_role = clean_filename(role)
 
